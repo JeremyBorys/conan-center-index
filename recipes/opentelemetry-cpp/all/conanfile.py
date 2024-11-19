@@ -288,6 +288,10 @@ class OpenTelemetryCppConan(ConanFile):
         tc.cache_variables["OPENTELEMETRY_INSTALL"] = True
         if not self.settings.compiler.cppstd:
             tc.variables["CMAKE_CXX_STANDARD"] = self._min_cppstd
+
+        if self.settings.compiler == "msvc":
+            tc.preprocessor_definitions["NOMINMAX"] = 1
+
         tc.generate()
 
         deps = CMakeDeps(self)
